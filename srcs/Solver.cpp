@@ -92,6 +92,8 @@ void    Solver::parse(const char *exp, bool right)
     this->odds[i] += coef;
     if (*exp == '=')
         parse(++exp, true);
+    else if (right)
+        parse(exp, true);
     else
         parse(exp, false);
 }
