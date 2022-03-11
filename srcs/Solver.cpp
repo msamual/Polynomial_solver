@@ -27,8 +27,31 @@ Solver& Solver::operator=(const Solver &other)
 
 void    Solver::solve()
 {
-    int a = odds.at(2), b = odds.at(1), c = odds.at(0);
+    double a = odds[2], b = odds[1], c = odds[0];
 
+    if (!a && !b)
+        std::cout << "There is no decision" << std::endl;
+    else if ((!a && !c) || (!b && !c))
+        std::cout << "The solution is:\n0" << std::endl;
+    else if (!a)
+        std::cout << "The solution is:\n" <<  -c / b << std::endl;
+    else
+    {
+        D = b * b - (4 * a * c);
+        if (D < 0)
+            std::cout << "There is no decision" << std::endl;
+        if (D == 0)
+        {
+            std::cout << "The solution is:" << std::endl;
+            std::cout << -b / (2 * a) << std::endl;
+        }
+        else
+        {
+            std::cout << "Discriminant is strictly positive, the two solutions are:" << std::endl;
+            std::cout << (-b - sqrt(D)) / (2 * a) << std::endl;
+            std::cout << (-b + sqrt(D)) / (2 * a) << std::endl;
+        }
+    }
 
 }
 
@@ -47,7 +70,7 @@ void    Solver::parse(const char *exp, bool right)
     if (find_char("0123456789.", *exp))
         coef = std::stod(exp) * (minus ? -1 : 1);
     else
-        coef = 0;
+        coef = 1  * (minus ? -1 : 1);
     while (find_char("0123456789.", *exp))
         ++exp;
     if (*exp == '*')
@@ -73,24 +96,43 @@ void    Solver::parse(const char *exp, bool right)
         parse(exp, false);
 }
 
+int     Solver::get_max_degree()
+{
+    std::map<int, double>::iterator it;
+
+    it = odds.end();
+    while (--it != odds.begin())
+    {
+        if (it->second)
+            return it->first;
+    }
+    return 0;
+}
+
 void    Solver::print_reduced_form()
 {
-    bool minus = false;
     std::map<int, double>::iterator it;
-    std::cout << "Reduced form: ";
+    int                             degree = this->get_max_degree();
 
+    std::cout << "Reduced form: ";
     for(it = odds.begin(); it != odds.end(); ++it)
     {
-        if (odds.begin() == it)
-            std::cout << it->second;
-        else
-            std::cout << (minus ? '-' : '+') << ' ' << std::abs(it->second);
-        std::cout << " * X^" << it->first << ' ';
+        if (it->second || it->first <= degree)
+        {
+            if (odds.begin() == it)
+                std::cout << it->second;
+            else
+                std::cout << (it->second < 0 ? '-' : '+') << ' ' << std::abs(it->second);
+            if (it->first)
+                std::cout << " * X^" << it->first;
+            std::cout << ' ';
+        }
     }
     std::cout << "= 0" << std::endl;
-    it--;
-    std::cout << "Polynomial degree: " << it->first << std::endl;
-    if (it->first > 2)
+    std::cout << "Polynomial degree: " << degree << std::endl;
+    if (degree > 2)
+    {
         std::cout << "The polynomial degree is strictly greater than 2, I can't solve." << std::endl;
-    exit(0);
+        exit(0);
+    }
 }

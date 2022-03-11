@@ -23,6 +23,7 @@ public:
     void parse(const char *exp, bool right);
     void print_reduced_form();
     void solve();
+    int  get_max_degree();
 };
 
 #endif //POLYNOMIAL_SOLVER_SOLVER_H

@@ -18,6 +18,7 @@ std::string remove_spaces(const std::string& str);
 bool        find_char(const char *str, char c);
 double      get_coef(std::string& str);
 int         get_power(std::string str);
+double      sqrt(const double number);
 
 
 #endif //POLYNOMIAL_SOLVER_COMPUTOR_HPP
