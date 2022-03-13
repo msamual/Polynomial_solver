@@ -148,8 +148,8 @@ void    Solver::print_reduced_form()
 
 void 	Solver::complex_solve(double a, double b)
 {
-	ComplexNumber	sqrD(sqrt(abs(this->D)), 1);
-	ComplexNumber	res1 = (-b + ;
+	ComplexNumber	sqrD(0,sqrt(abs(this->D)));
+	ComplexNumber	res1 = (-b / (2 * a)) + (sqrD / (2 * a));
 	ComplexNumber	res2 = (-b / (2 * a)) - (sqrD / (2 * a));
 
 	std::cout << res1 << std::endl;

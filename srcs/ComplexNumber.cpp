@@ -142,7 +142,8 @@ ComplexNumber	operator/(const ComplexNumber& left, double right)
 
 ComplexNumber	operator+(double left, const ComplexNumber& right)
 {
-	return (ComplexNumber(left + right.getReal()), right.getImag());
+	ComplexNumber	res(left + right.getReal(), right.getImag());
+	return (res);
 }
 
 ComplexNumber	operator-(double left, const ComplexNumber& right)
