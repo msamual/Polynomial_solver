@@ -18,12 +18,13 @@ public:
     Solver(std::string exp);
     Solver(const Solver& other);
 
-    Solver& operator=(const Solver& other);
+    Solver& 	operator=(const Solver& other);
 
-    void parse(const char *exp, bool right);
-    void print_reduced_form();
-    void solve();
-    int  get_max_degree();
+    void 		parse(const char *exp, bool right);
+    void 		print_reduced_form();
+    void 		solve();
+    int  		get_max_degree();
+	void 		complex_solve(double a, double b);
 };
 
 #endif //POLYNOMIAL_SOLVER_SOLVER_H

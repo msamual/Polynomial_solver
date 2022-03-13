@@ -29,6 +29,8 @@ void    Solver::solve()
 {
     double a = odds[2], b = odds[1], c = odds[0];
 
+	if (!a && !b && c == 0)
+		std::cout << "any real number is a solution" << std::endl;
     if (!a && !b)
         std::cout << "There is no decision" << std::endl;
     else if ((!a && !c) || (!b && !c))
@@ -40,9 +42,14 @@ void    Solver::solve()
         D = b * b - (4 * a * c);
         if (D < 0)
             std::cout << "There is no decision" << std::endl;
-        if (D == 0)
+		if (D < 0)
+		{
+			std::cout << "Discriminant is strictly negative, the two complex solutions are:" << std::endl;
+			this->complex_solve(a, b);
+		}
+        else if (D == 0)
         {
-            std::cout << "The solution is:" << std::endl;
+			std::cout << "Discriminant is zero, only one solution is:" << std::endl;
             std::cout << -b / (2 * a) << std::endl;
         }
         else
@@ -124,7 +131,7 @@ void    Solver::print_reduced_form()
             if (odds.begin() == it)
                 std::cout << it->second;
             else
-                std::cout << (it->second < 0 ? '-' : '+') << ' ' << std::abs(it->second);
+                std::cout << (it->second < 0 ? '-' : '+') << ' ' << abs(it->second);
             if (it->first)
                 std::cout << " * X^" << it->first;
             std::cout << ' ';
@@ -137,4 +144,14 @@ void    Solver::print_reduced_form()
         std::cout << "The polynomial degree is strictly greater than 2, I can't solve." << std::endl;
         exit(0);
     }
+}
+
+void 	Solver::complex_solve(double a, double b)
+{
+	ComplexNumber	sqrD(sqrt(abs(this->D)), 1);
+	ComplexNumber	res1 = (-b + ;
+	ComplexNumber	res2 = (-b / (2 * a)) - (sqrD / (2 * a));
+
+	std::cout << res1 << std::endl;
+	std::cout << res2 << std::endl;
 }

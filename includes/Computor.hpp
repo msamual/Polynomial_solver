@@ -10,6 +10,7 @@
 #include <map>
 
 #include "Solver.hpp"
+#include "ComplexNumber.hpp"
 
 void        trim(std::string &s);
 int         puterror(std::string msg);
@@ -19,6 +20,7 @@ bool        find_char(const char *str, char c);
 double      get_coef(std::string& str);
 int         get_power(std::string str);
 double      sqrt(const double number);
+double		abs(double n);
 
 
 #endif //POLYNOMIAL_SOLVER_COMPUTOR_HPP
